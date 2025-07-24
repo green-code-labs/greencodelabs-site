@@ -1,0 +1,167 @@
+{
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "about": "About Us",
+    "processes": "Processes",
+    "contact": "Contact"
+  },
+  "hero": {
+    "title": "We transform your ideas into innovative digital solutions",
+    "subtitle": "We are a software house specialized in web development, mobile apps, and custom solutions to boost your business in the digital world.",
+    "cta": "Start Project",
+    "ctaSecondary": "View Portfolio"
+  },
+  "solutions": {
+    "title": "Our Solutions",
+    "subtitle": "We offer a complete range of development services to meet all your digital needs",
+    "web": {
+      "title": "Web Development",
+      "description": "Modern, responsive web sites and applications optimized for performance",
+      "features": ["Responsive Websites", "E-commerce", "Web Systems", "Landing Pages"]
+    },
+    "mobile": {
+      "title": "Mobile Development",
+      "description": "Native and hybrid applications for iOS and Android with exceptional experience",
+      "features": ["Native Apps", "Hybrid Apps", "UI/UX Design", "Store Publishing"]
+    },
+    "custom": {
+      "title": "Custom Solutions",
+      "description": "Tailor-made systems to meet your business specific needs",
+      "features": ["ERP/CRM", "REST APIs", "Integrations", "Automations"]
+    },
+    "branding": {
+      "title": "Branding & Design",
+      "description": "Complete visual identity and design that connects with your target audience",
+      "features": ["Logo & Identity", "Graphic Material", "UI/UX Design", "Prototyping"]
+    }
+  },
+  "chosen": {
+    "title": "Why choose us?",
+    "subtitle": "We combine technical expertise with creativity to deliver solutions that really make a difference",
+    "experience": {
+      "title": "Proven Experience",
+      "description": "Years of experience developing solutions for various segments"
+    },
+    "quality": {
+      "title": "Guaranteed Quality",
+      "description": "Clean code, rigorous testing and complete documentation"
+    },
+    "support": {
+      "title": "Continuous Support",
+      "description": "Post-delivery follow-up and specialized technical support"
+    },
+    "innovation": {
+      "title": "Cutting-edge Technology",
+      "description": "We always use the most modern and efficient technologies"
+    }
+  },
+  "faq": {
+    "title": "Frequently Asked Questions",
+    "subtitle": "Get answers about our services and processes",
+    "items": [
+      {
+        "question": "How long does it take to develop a project?",
+        "answer": "The timeline varies according to project complexity. Simple websites can take 2-4 weeks, while more complex systems can take 2-6 months. We always provide a detailed timeline after initial analysis."
+      },
+      {
+        "question": "Do you offer support after delivery?",
+        "answer": "Yes! We offer a 3-month warranty for bug fixes and technical support. We also have monthly maintenance plans for continuous updates and improvements."
+      },
+      {
+        "question": "How does the development process work?",
+        "answer": "We follow an agile methodology: 1) Briefing and planning, 2) Design and prototyping, 3) Iterative development, 4) Testing and validation, 5) Delivery and training. You follow each step of the process."
+      },
+      {
+        "question": "What technologies do you work with?",
+        "answer": "We use modern technologies like React, Next.js, Node.js, Python, React Native, Flutter, and many others. We choose the ideal stack for each project based on specific requirements."
+      },
+      {
+        "question": "Is it possible to make changes during development?",
+        "answer": "Yes, our agile methodology allows adjustments during development. Small changes are included in the scope, major changes are evaluated and budgeted separately."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Let's Talk Business",
+    "subtitle": "Ready to bring your vision to life? Tell us about your project and let's create something amazing together!",
+    "form": {
+      "name": "Full Name",
+      "namePlaceholder": "Enter your full name",
+      "email": "Email Address",
+      "emailPlaceholder": "your@email.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+1 (555) 123-4567",
+      "company": "Company/Organization",
+      "companyPlaceholder": "Your company name",
+      "services": "Services of Interest",
+      "serviceOptions": {
+        "web": "Web Development",
+        "mobile": "Mobile Applications",
+        "ecommerce": "E-commerce Solutions",
+        "branding": "Branding & Visual Identity",
+        "consulting": "Technical Consulting",
+        "maintenance": "Maintenance & Support"
+      },
+      "projectSize": "Project Scope",
+      "projectSizeOptions": {
+        "small": "Small (Simple website, Landing page)",
+        "medium": "Medium (E-commerce, Web system)",
+        "large": "Large (Complex platform, Mobile app)",
+        "enterprise": "Enterprise (Corporate system, Multiple integrations)"
+      },
+      "budget": "Estimated Investment",
+      "timeline": "Desired Timeline",
+      "timelineOptions": {
+        "select": "Select your preferred timeline",
+        "urgent": "Urgent (within 1 month)",
+        "oneToTwo": "1-2 months",
+        "threeToSix": "3-6 months",
+        "sixPlus": "6+ months"
+      },
+      "additionalInfo": "Additional Requirements",
+      "hasExistingBrand": "Already have established branding",
+      "needsHosting": "Need hosting and domain services",
+      "needsMaintenance": "Require ongoing maintenance plan",
+      "message": "Project Details",
+      "messagePlaceholder": "Please describe your project, goals, target audience, and any relevant information that will help us better understand your requirements...",
+      "submit": "Send Request",
+      "sending": "Sending...",
+      "successMessage": "Request sent successfully! Our team will contact you within 24 hours.",
+      "errorMessage": "Oops! Something went wrong. Please try again or contact us directly."
+    }
+  },
+  "footer": {
+    "company": {
+      "title": "Company",
+      "description": "We transform ideas into innovative digital solutions. Specialists in web development, mobile apps and custom solutions."
+    },
+    "services": {
+      "title": "Services",
+      "web": "Web Development",
+      "mobile": "Mobile Apps",
+      "custom": "Custom Solutions",
+      "branding": "Branding & Design"
+    },
+    "company_links": {
+      "title": "Company",
+      "about": "About Us",
+      "services": "Services",
+      "portfolio": "Portfolio",
+      "contact": "Contact"
+    },
+    "contact": {
+      "title": "Contact",
+      "email": "contact@company.com",
+      "phone": "+1 (555) 123-4567",
+      "address": "New York, NY - USA"
+    },
+    "social": {
+      "title": "Social Media",
+      "follow": "Follow us"
+    },
+    "rights": "All rights reserved.",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use"
+  }
+}

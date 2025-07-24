@@ -1,187 +1,271 @@
-import { HeaderMainBackground } from "@/components/HeaderMainBackground"
-import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import {
-  Code2,
-  Palette,
-  Smartphone,
-  Globe,
-  Megaphone,
-  Zap,
-  Users,
-  Shield,
-  Lightbulb,
-  Rocket,
-  Target,
-  Settings,
-} from "lucide-react"
+"use client"
 
-export default function Servicos() {
-  const services = [
-    {
-      category: "Design",
-      description: "Criamos designs impressionantes e centrados no usuário que cativam seu público e elevam sua marca.",
-      icon: <Palette className="h-8 w-8" />,
-      color: "from-[#92d81e] to-[#7ec617]",
-      services: [
-        {
-          title: "User Experience (UX) Design",
-          items: [
-            { icon: <Users className="h-5 w-5" />, text: "Pesquisa de usuário e desenvolvimento de persona" },
-            { icon: <Settings className="h-5 w-5" />, text: "Arquitetura da Informação e Wireframing" },
-            { icon: <Target className="h-5 w-5" />, text: "Prototipagem interativa e testes de usuário" },
-            { icon: <Lightbulb className="h-5 w-5" />, text: "Design de UI e Branding Visual" },
-          ],
-        },
-        {
-          title: "User Interface (UI) Design",
-          items: [
-            { icon: <Zap className="h-5 w-5" />, text: "Design de interface intuitivo e visualmente atraente" },
-            { icon: <Palette className="h-5 w-5" />, text: "Iconografia e Ilustração Personalizadas" },
-            { icon: <Settings className="h-5 w-5" />, text: "Seleção de tipografia e paleta de cores" },
-            { icon: <Smartphone className="h-5 w-5" />, text: "Design responsivo para vários dispositivos" },
-          ],
-        },
-        {
-          title: "Branding",
-          items: [
-            { icon: <Rocket className="h-5 w-5" />, text: "Design de logotipo e desenvolvimento de identidade visual" },
-            { icon: <Target className="h-5 w-5" />, text: "Estratégia e Posicionamento de Marca" },
-            { icon: <Settings className="h-5 w-5" />, text: "Diretrizes de marca e guias de estilo" },
-            { icon: <Lightbulb className="h-5 w-5" />, text: "Design de materiais de marketing" },
-          ],
-        },
-      ],
-    },
-    {
-      category: "Desenvolvimento",
-      description:
-        "Construímos soluções digitais robustas e escaláveis usando as últimas tecnologias e melhores práticas.",
-      icon: <Code2 className="h-8 w-8" />,
-      color: "from-[#7ec617] to-[#6bb30f]",
-      services: [
-        {
-          title: "Desenvolvimento Web",
-          items: [
-            { icon: <Globe className="h-5 w-5" />, text: "Desenvolvimento Front-End" },
-            { icon: <Settings className="h-5 w-5" />, text: "Desenvolvimento Back-End" },
-            { icon: <Code2 className="h-5 w-5" />, text: "Desenvolvimento de CMS (WordPress, Drupal)" },
-            { icon: <Rocket className="h-5 w-5" />, text: "Desenvolvimento de E-Commerce (Magento, Shopify)" },
-          ],
-        },
-        {
-          title: "Mobile App Development",
-          items: [
-            { icon: <Smartphone className="h-5 w-5" />, text: "Aplicativos nativos para iOS e Android" },
-            { icon: <Code2 className="h-5 w-5" />, text: "Aplicativos multiplataforma (React Native, Flutter)" },
-            { icon: <Lightbulb className="h-5 w-5" />, text: "Prototipagem e integração de design UI/UX" },
-            { icon: <Shield className="h-5 w-5" />, text: "Teste, implantação e manutenção" },
-          ],
-        },
-        {
-          title: "Software Personalizado",
-          items: [
-            { icon: <Settings className="h-5 w-5" />, text: "Desenvolvimento de software empresarial" },
-            { icon: <Globe className="h-5 w-5" />, text: "Aplicativos Web personalizados" },
-            { icon: <Zap className="h-5 w-5" />, text: "Integração com APIs e sistemas de terceiros" },
-            { icon: <Rocket className="h-5 w-5" />, text: "Modernização de sistemas legados" },
-          ],
-        },
-      ],
-    },
-    {
-      category: "Marketing Digital",
-      description: "Aumentamos a visibilidade da sua marca, impulsionamos o engajamento e maximizamos seu ROI.",
-      icon: <Megaphone className="h-8 w-8" />,
-      color: "from-[#6bb30f] to-[#57a108]",
-      services: [
-        {
-          title: "Serviços de Mídia Digital",
-          items: [
-            { icon: <Users className="h-5 w-5" />, text: "Gestão de Mídias Sociais" },
-            { icon: <Target className="h-5 w-5" />, text: "Otimização para Motores de Busca (SEO)" },
-            { icon: <Zap className="h-5 w-5" />, text: "Gestão de Tráfego Pago (Google Ads, Meta, LinkedIn)" },
-            { icon: <Lightbulb className="h-5 w-5" />, text: "Marketing de Conteúdo" },
-          ],
-        },
-        {
-          title: "Desenvolvimento Ágil",
-          items: [
-            { icon: <Rocket className="h-5 w-5" />, text: "Desenvolvimento Iterativo e Sprints" },
-            { icon: <Settings className="h-5 w-5" />, text: "Metodologia Scrum ou Kanban" },
-            { icon: <Target className="h-5 w-5" />, text: "Atualizações regulares de progresso" },
-            { icon: <Zap className="h-5 w-5" />, text: "Melhoria Contínua e Feedback" },
-          ],
-        },
-        {
-          title: "Garantia de Qualidade",
-          items: [
-            { icon: <Shield className="h-5 w-5" />, text: "Planejamento e Execução de Testes" },
-            { icon: <Users className="h-5 w-5" />, text: "Teste Funcional e de Usabilidade" },
-            { icon: <Zap className="h-5 w-5" />, text: "Testes de Performance e Segurança" },
-            { icon: <Settings className="h-5 w-5" />, text: "Rastreamento de Bugs e Resolução" },
-          ],
-        },
-      ],
-    },
-  ]
+import { useState } from "react"
+import { ChevronDown, ChevronUp, Code, Smartphone, Globe, Zap, Shield, Users } from "lucide-react"
+import { useLanguage } from "@/components/LanguageProvider"
+import { Contact } from "@/components/Contact"
+import { Header } from "@/components/Header"
+import { Footer } from "@/components/Footer"
+
+const services = [
+  {
+    icon: <Globe className="w-12 h-12" />,
+    title: "Desenvolvimento Web",
+    titleEn: "Web Development",
+    description: "Sites e aplicações web modernas, responsivas e otimizadas para performance máxima.",
+    descriptionEn: "Modern, responsive websites and web applications optimized for maximum performance.",
+    features: [
+      "Sites Institucionais",
+      "Aplicações Web (SPA/PWA)",
+      "Sistemas de Gestão",
+      "Portais Corporativos",
+      "Landing Pages",
+      "Blogs e CMS",
+    ],
+    featuresEn: [
+      "Corporate Websites",
+      "Web Applications (SPA/PWA)",
+      "Management Systems",
+      "Corporate Portals",
+      "Landing Pages",
+      "Blogs and CMS",
+    ],
+    technologies: ["React", "Next.js", "Vue.js", "Node.js", "TypeScript", "Tailwind CSS"],
+  },
+  {
+    icon: <Smartphone className="w-12 h-12" />,
+    title: "Aplicativos Mobile",
+    titleEn: "Mobile Apps",
+    description: "Apps nativos e híbridos para iOS e Android com experiência excepcional do usuário.",
+    descriptionEn: "Native and hybrid apps for iOS and Android with exceptional user experience.",
+    features: [
+      "Apps Nativos (iOS/Android)",
+      "Apps Híbridos",
+      "Progressive Web Apps",
+      "UI/UX Design",
+      "Publicação nas Stores",
+      "Manutenção e Updates",
+    ],
+    featuresEn: [
+      "Native Apps (iOS/Android)",
+      "Hybrid Apps",
+      "Progressive Web Apps",
+      "UI/UX Design",
+      "Store Publishing",
+      "Maintenance and Updates",
+    ],
+    technologies: ["React Native", "Flutter", "Swift", "Kotlin", "Expo", "Firebase"],
+  },
+  {
+    icon: <Code className="w-12 h-12" />,
+    title: "Sistemas Personalizados",
+    titleEn: "Custom Systems",
+    description: "Soluções sob medida para automatizar e otimizar seus processos de negócio.",
+    descriptionEn: "Tailor-made solutions to automate and optimize your business processes.",
+    features: [
+      "ERPs Personalizados",
+      "CRMs Sob Medida",
+      "APIs e Integrações",
+      "Automação de Processos",
+      "Dashboards Analytics",
+      "Sistemas de Workflow",
+    ],
+    featuresEn: [
+      "Custom ERPs",
+      "Tailor-made CRMs",
+      "APIs and Integrations",
+      "Process Automation",
+      "Analytics Dashboards",
+      "Workflow Systems",
+    ],
+    technologies: ["Python", "Django", "FastAPI", "PostgreSQL", "MongoDB", "Redis"],
+  },
+  {
+    icon: <Zap className="w-12 h-12" />,
+    title: "E-commerce",
+    titleEn: "E-commerce",
+    description: "Lojas virtuais completas com pagamento, estoque e gestão integrada.",
+    descriptionEn: "Complete online stores with payment, inventory and integrated management.",
+    features: [
+      "Lojas Virtuais Completas",
+      "Integração de Pagamentos",
+      "Gestão de Estoque",
+      "Painel Administrativo",
+      "SEO e Marketing",
+      "Analytics e Relatórios",
+    ],
+    featuresEn: [
+      "Complete Online Stores",
+      "Payment Integration",
+      "Inventory Management",
+      "Admin Panel",
+      "SEO and Marketing",
+      "Analytics and Reports",
+    ],
+    technologies: ["Shopify", "WooCommerce", "Magento", "Stripe", "PayPal", "Google Analytics"],
+  },
+  {
+    icon: <Shield className="w-12 h-12" />,
+    title: "Consultoria Digital",
+    titleEn: "Digital Consulting",
+    description: "Estratégias digitais para acelerar o crescimento e otimização do seu negócio.",
+    descriptionEn: "Digital strategies to accelerate growth and optimization of your business.",
+    features: [
+      "Auditoria Técnica",
+      "Arquitetura de Software",
+      "Otimização de Performance",
+      "Segurança Digital",
+      "Estratégia de Tecnologia",
+      "Treinamento de Equipes",
+    ],
+    featuresEn: [
+      "Technical Audit",
+      "Software Architecture",
+      "Performance Optimization",
+      "Digital Security",
+      "Technology Strategy",
+      "Team Training",
+    ],
+    technologies: ["AWS", "Google Cloud", "Docker", "Kubernetes", "CI/CD", "Monitoring"],
+  },
+  {
+    icon: <Users className="w-12 h-12" />,
+    title: "Suporte & Manutenção",
+    titleEn: "Support & Maintenance",
+    description: "Suporte contínuo e manutenção para manter seus sistemas sempre atualizados.",
+    descriptionEn: "Continuous support and maintenance to keep your systems always updated.",
+    features: [
+      "Suporte Técnico 24/7",
+      "Manutenção Preventiva",
+      "Updates e Patches",
+      "Backup e Recuperação",
+      "Monitoramento Contínuo",
+      "Relatórios Mensais",
+    ],
+    featuresEn: [
+      "24/7 Technical Support",
+      "Preventive Maintenance",
+      "Updates and Patches",
+      "Backup and Recovery",
+      "Continuous Monitoring",
+      "Monthly Reports",
+    ],
+    technologies: ["Monitoring Tools", "Backup Solutions", "Security Updates", "Performance Optimization"],
+  },
+]
+
+export default function ServicosPage() {
+  const [expandedService, setExpandedService] = useState<number | null>(null)
+  const { language, t } = useLanguage()
+
+  const toggleService = (index: number) => {
+    setExpandedService(expandedService === index ? null : index)
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1e1e38] via-[#2a2a4a] to-[#1e1e38]">
-      <HeaderMainBackground
-        title="Nossos Serviços"
-        subtitle="Transforme sua marca com nossas soluções digitais inovadoras que cativam e engajam seu público."
-      />
+    <div className="min-h-screen bg-[#0f0f23]">
+      <Header />
 
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
-        <div className="space-y-20">
-          {services.map((category, categoryIndex) => (
-            <div key={categoryIndex} className="space-y-12">
-              <div className="text-center space-y-6">
-                <div
-                  className={`inline-flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-r ${category.color} text-white shadow-lg`}
-                >
-                  {category.icon}
-                </div>
-                <div className="space-y-4">
-                  <h2 className="text-4xl md:text-5xl font-bold text-white">{category.category}</h2>
-                  <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">{category.description}</p>
-                  <Badge variant="secondary" className="bg-white/10 text-white border-white/20 px-4 py-2 text-sm">
-                    Nossos serviços de {category.category} incluem:
-                  </Badge>
-                </div>
-              </div>
-
-              <div className="grid lg:grid-cols-3 gap-8">
-                {category.services.map((service, serviceIndex) => (
-                  <Card
-                    key={serviceIndex}
-                    className="bg-white/5 border-white/10 backdrop-blur-sm hover:bg-white/10 transition-all duration-300 group"
-                  >
-                    <CardContent className="p-8 space-y-6">
-                      <h3 className="text-2xl font-bold text-white group-hover:text-[#92d81e] transition-colors">
-                        {service.title}
-                      </h3>
-                      <div className="space-y-4">
-                        {service.items.map((item, itemIndex) => (
-                          <div key={itemIndex} className="flex items-start gap-4 group/item">
-                            <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-r from-[#92d81e] to-[#7ec617] flex items-center justify-center text-white group-hover/item:scale-110 transition-transform">
-                              {item.icon}
-                            </div>
-                            <p className="text-gray-300 leading-relaxed group-hover/item:text-white transition-colors">
-                              {item.text}
-                            </p>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  </Card>
-                ))}
-              </div>
-            </div>
-          ))}
+      <section className="py-20 bg-gradient-to-br from-[#121225] via-[#1a1a2e] to-[#121225] mt-16">
+        <div className="container mx-auto px-4 text-center">
+          <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">{t("services.title")}</h1>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t("services.subtitle")}</p>
         </div>
-      </div>
+      </section>
+
+      <section className="py-20">
+        <div className="container mx-auto px-4">
+          <div className="grid lg:grid-cols-2 gap-8">
+            {services.map((service, index) => (
+              <div
+                key={index}
+                className="bg-[#1a1a2e] border border-[#2a2a4a] rounded-xl overflow-hidden hover:border-[#92d81e] transition-all duration-300"
+              >
+                <div className="p-8">
+                  <div className="flex items-start gap-4 mb-6">
+                    <div className="w-16 h-16 bg-[#92d81e]/10 rounded-lg flex items-center justify-center text-[#92d81e]">
+                      {service.icon}
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-white mb-2">
+                        {language === "en" ? service.titleEn : service.title}
+                      </h3>
+                      <p className="text-[#92d81e] font-semibold">
+
+                      </p>
+                    </div>
+                  </div>
+
+                  <p className="text-gray-300 mb-6 leading-relaxed">
+                    {language === "en" ? service.descriptionEn : service.description}
+                  </p>
+
+                  <button
+                    onClick={() => toggleService(index)}
+                    className="flex items-center justify-between w-full text-left text-white font-medium hover:text-[#92d81e] transition-colors"
+                  >
+                    <span>{language === "en" ? "View details" : "Ver detalhes"}</span>
+                    {expandedService === index ? (
+                      <ChevronUp className="w-5 h-5" />
+                    ) : (
+                      <ChevronDown className="w-5 h-5" />
+                    )}
+                  </button>
+                </div>
+
+                {expandedService === index && (
+                  <div className="px-8 pb-8 border-t border-[#2a2a4a]">
+                    <div className="pt-6 space-y-6">
+                      <div>
+                        <h4 className="text-white font-semibold mb-3">
+                          {language === "en" ? "What's included:" : "O que está incluído:"}
+                        </h4>
+                        <div className="grid md:grid-cols-2 gap-2">
+                          {(language === "en" ? service.featuresEn : service.features).map((feature, featureIndex) => (
+                            <div key={featureIndex} className="flex items-center gap-2">
+                              <div className="w-1.5 h-1.5 bg-[#92d81e] rounded-full"></div>
+                              <span className="text-sm text-gray-300">{feature}</span>
+                            </div>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div>
+                        <h4 className="text-white font-semibold mb-3">
+                          {language === "en" ? "Technologies used:" : "Tecnologias utilizadas:"}
+                        </h4>
+                        <div className="flex flex-wrap gap-2">
+                          {service.technologies.map((tech, techIndex) => (
+                            <span
+                              key={techIndex}
+                              className="px-3 py-1 bg-[#92d81e]/10 text-[#92d81e] rounded-full text-sm"
+                            >
+                              {tech}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="pt-4">
+                        <a
+                          href="/contato"
+                          className="inline-flex items-center gap-2 px-6 py-3 bg-[#92d81e] text-black rounded-lg hover:bg-[#7bc016] transition-colors font-semibold"
+                        >
+                          {language === "en" ? "Request Quote" : "Solicitar Orçamento"}
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <Contact />
+
+      <Footer />
     </div>
   )
 }

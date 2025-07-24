@@ -1,17 +1,26 @@
-import { Hero } from "./Hero";
-import { FAQ } from "./FAQ";
-import { Chosen } from "./Chosen";
-import { Solutions } from "./Solutions";
-import { Contact } from "@/components/Contact";
+"use client"
 
-export default function Home() {
+import { Header } from "@/components/Header"
+import { Footer } from "@/components/Footer"
+import { Hero } from "./Hero"
+import { Solutions } from "./Solutions"
+import { Chosen } from "./Chosen"
+import { FAQ } from "./FAQ"
+import { Contact } from "@/components/Contact"
+import { LanguageProvider } from "@/components/LanguageProvider"
+
+export default function HomePage() {
   return (
-    <main className="flex items-center flex-col gap-5">
-      <Hero />
-      <Solutions />
-      <Chosen />
-      <FAQ />
-      <Contact />
-    </main>
-  );
+    <LanguageProvider>
+      <div className="min-h-screen bg-black">
+        <Header />
+        <Hero />
+        <Solutions />
+        <Chosen />
+        <FAQ />
+        <Contact />
+        <Footer />
+      </div>
+    </LanguageProvider>
+  )
 }

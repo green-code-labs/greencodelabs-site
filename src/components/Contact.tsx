@@ -1,321 +1,332 @@
 "use client"
 
 import type React from "react"
+
 import { useState } from "react"
+import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
+import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
-import { Textarea } from "@/components/ui/textarea"
-import { Button } from "@/components/ui/button"
-import logoImg from "@/assets/logo.svg"
-import { HeaderMainBackground } from "@/components/HeaderMainBackground"
-import Image from "next/image"
-import { Mail, Phone, User, MessageSquare, Briefcase, CheckCircle, AlertCircle } from "lucide-react"
-import { BudgetSlider } from "./BudgetSlider"
-import { ProjectSizeSelector } from "./ProjectSizeSelector"
+import { BudgetSlider } from "@/components/BudgetSlider"
+import { useLanguage } from "@/components/LanguageProvider"
 
 interface ContactProps {
-  hasButton?: boolean
-  hasLogo?: boolean
-  hasProjectSize?: boolean
-  hasBudget?: boolean
   buttonTitle?: string
-  title?: string
-  subtitle?: string
-  prefilledName?: string
-  prefilledEmail?: string
+  hasBudget?: boolean
 }
 
-interface FormData {
-  fullName: string
-  phone: string
-  email: string
-  reasons: string[]
-  projectSize: string
-  budget: number
-  customBudget: string
-  message: string
-}
-
-export function Contact({
-  hasButton = true,
-  hasProjectSize = false,
-  hasBudget = false,
-  hasLogo = true,
-  buttonTitle = "Agendar Conversa",
-  title = "Obrigado por se interessar na Green Code.",
-  subtitle = "Estamos ansiosos para ouvir você e discutir como podemos ajudar a criar soluções digitais inovadoras para o seu negócio. Agende uma conversa conosco e descubra nossa proposta personalizada, sem qualquer compromisso.",
-  prefilledName = "",
-  prefilledEmail = "",
-}: ContactProps) {
-  const [formData, setFormData] = useState<FormData>({
-    fullName: prefilledName,
+export function Contact({ buttonTitle, hasBudget = false }: ContactProps) {
+  const { t } = useLanguage()
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
     phone: "",
-    email: prefilledEmail,
-    reasons: [],
-    projectSize: "",
-    budget: 25000,
-    customBudget: "",
+    company: "",
     message: "",
+    budget: 5000,
+    projectSize: "small",
+    services: [] as string[],
+    timeline: "",
+    hasExistingBrand: false,
+    needsHosting: false,
+    needsMaintenance: false,
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [submitStatus, setSubmitStatus] = useState<"idle" | "success" | "error">("idle")
-  const [submitMessage, setSubmitMessage] = useState("")
-
-  const handleReasonChange = (reasonId: string, checked: boolean) => {
-    setFormData((prev) => ({
-      ...prev,
-      reasons: checked ? [...prev.reasons, reasonId] : prev.reasons.filter((r) => r !== reasonId),
-    }))
-  }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setSubmitStatus("idle")
 
     try {
-      if (!formData.fullName || !formData.email) {
-        throw new Error("Nome e email são obrigatórios")
-      }
-
-      const leadData = {
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        reasons: formData.reasons.join(", "),
-        projectSize: formData.projectSize,
-        budget: formData.customBudget || `R$ ${formData.budget.toLocaleString("pt-BR")}`,
-        message: formData.message,
-        source: "Formulário de Contato",
-        timestamp: new Date().toISOString(),
-      }
-
-      const response = await fetch("/send-lead", {
+      const response = await fetch("/api/send-contact", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(leadData),
+        body: JSON.stringify(formData),
       })
 
-      if (!response.ok) {
-        const errorText = await response.text()
-        throw new Error(`Erro ${response.status}: ${errorText}`)
+      if (response.ok) {
+        setSubmitStatus("success")
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          company: "",
+          message: "",
+          budget: 5000,
+          projectSize: "small",
+          services: [],
+          timeline: "",
+          hasExistingBrand: false,
+          needsHosting: false,
+          needsMaintenance: false,
+        })
+      } else {
+        setSubmitStatus("error")
       }
-
-      await response.json()
-      setSubmitStatus("success")
-      setSubmitMessage("Formulário enviado com sucesso! Entraremos em contato em breve.")
-
-      setFormData({
-        fullName: "",
-        phone: "",
-        email: "",
-        reasons: [],
-        projectSize: "",
-        budget: 25000,
-        customBudget: "",
-        message: "",
-      })
     } catch (error) {
-      console.error("Erro ao enviar formulário:", error)
       setSubmitStatus("error")
-      setSubmitMessage(error instanceof Error ? error.message : "Erro ao enviar formulário")
     } finally {
       setIsSubmitting(false)
     }
   }
 
+  const handleServiceChange = (service: string, checked: boolean) => {
+    if (checked) {
+      setFormData((prev) => ({
+        ...prev,
+        services: [...prev.services, service],
+      }))
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        services: prev.services.filter((s) => s !== service),
+      }))
+    }
+  }
+
+  const projectSizeOptions = [
+    { value: "small", label: t("contact.form.projectSizeOptions.small") },
+    { value: "medium", label: t("contact.form.projectSizeOptions.medium") },
+    { value: "large", label: t("contact.form.projectSizeOptions.large") },
+    { value: "enterprise", label: t("contact.form.projectSizeOptions.enterprise") },
+  ]
+
   return (
-    <div className="w-full flex justify-center flex-col max-w-[1150px] mx-auto">
-    <HeaderMainBackground
-      icon={hasLogo && <Image src={logoImg || "/placeholder.svg"} alt="Logomarca" />}
-      title={title}
-      subtitle={subtitle}
-      footerContent={
-        hasButton && (
-          <Button
-            type="button"
-            asChild={false}
-            className="green-gradient hover:opacity-90 transition-opacity"
-          >
-            {buttonTitle}
-          </Button>
-        )
-      }
-    />
+    <section className="py-20 bg-[#0f0f23]">
+      <div className="container mx-auto px-4">
+        <div className="text-center mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">{t("contact.title")}</h2>
+          <p className="text-xl text-gray-300 max-w-2xl mx-auto">{t("contact.subtitle")}</p>
+        </div>
 
-      <div className="bg-gradient-to-br from-[#1e1e38] to-[#2a2a4a] border border-[#3a3a5a] rounded-lg">
-        <form onSubmit={handleSubmit} className="container lg:px-10 pb-8 lg:pb-16 pt-8 lg:pt-16 max-w-[60rem] mx-auto">
-          {submitStatus !== "idle" && (
-            <div
-              className={`mb-6 p-4 rounded-lg flex items-center gap-3 ${
-                submitStatus === "success"
-                  ? "bg-green-900/20 border border-green-500/30 text-green-400"
-                  : "bg-red-900/20 border border-red-500/30 text-red-400"
-              }`}
-            >
-              {submitStatus === "success" ? <CheckCircle className="w-5 h-5" /> : <AlertCircle className="w-5 h-5" />}
-              <span>{submitMessage}</span>
-            </div>
-          )}
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 lg:gap-8">
-            <div className="lg:col-span-2">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-4 hover:border-[#92d81e]/50 transition-colors duration-300">
-                  <div className="flex items-center gap-3 mb-2">
-                    <User className="w-5 h-5 text-[#92d81e]" />
-                    <Label htmlFor="fullName" className="font-medium text-lg text-white">
-                      Nome Completo *
-                    </Label>
-                  </div>
+        <div className="max-w-4xl mx-auto">
+          <div className="bg-gradient-to-br from-[#121225] via-[#1a1a2e] to-[#121225] rounded-2xl p-8 md:p-12 border border-gray-800">
+            <form onSubmit={handleSubmit} className="space-y-8">
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="name" className="text-white font-medium">
+                    {t("contact.form.name")} *
+                  </Label>
                   <Input
-                    id="fullName"
-                    value={formData.fullName}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, fullName: e.target.value }))}
-                    className="bg-[#1e1e38] border-[#3a3a5a] text-white placeholder:text-[#8a8a9a] focus:border-[#92d81e] focus:ring-[#92d81e]/20 h-12"
+                    id="name"
+                    type="text"
+                    value={formData.name}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, name: e.target.value }))}
+                    className="bg-[#0f0f23] border-gray-700 text-white focus:border-[#92d81e]"
                     placeholder="Digite seu nome completo"
                     required
                   />
                 </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-4 hover:border-[#92d81e]/50 transition-colors duration-300">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Phone className="w-5 h-5 text-[#92d81e]" />
-                    <Label htmlFor="celular" className="font-medium text-lg text-white">
-                      Celular
-                    </Label>
-                  </div>
-                  <Input
-                    id="celular"
-                    value={formData.phone}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
-                    className="bg-[#1e1e38] border-[#3a3a5a] text-white placeholder:text-[#8a8a9a] focus:border-[#92d81e] focus:ring-[#92d81e]/20 h-12"
-                    placeholder="(99) 9 9999-9999"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div>
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-4 hover:border-[#92d81e]/50 transition-colors duration-300">
-                  <div className="flex items-center gap-3 mb-2">
-                    <Mail className="w-5 h-5 text-[#92d81e]" />
-                    <Label htmlFor="email" className="font-medium text-lg text-white">
-                      E-mail *
-                    </Label>
-                  </div>
+                <div className="space-y-2">
+                  <Label htmlFor="email" className="text-white font-medium">
+                    {t("contact.form.email")} *
+                  </Label>
                   <Input
                     id="email"
                     type="email"
                     value={formData.email}
                     onChange={(e) => setFormData((prev) => ({ ...prev, email: e.target.value }))}
-                    className="bg-[#1e1e38] border-[#3a3a5a] text-white placeholder:text-[#8a8a9a] focus:border-[#92d81e] focus:ring-[#92d81e]/20 h-12"
+                    className="bg-[#0f0f23] border-gray-700 text-white focus:border-[#92d81e]"
                     placeholder="seu@email.com"
                     required
                   />
                 </div>
               </div>
-            </div>
 
-            <div className="lg:col-span-2">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-6 hover:border-[#92d81e]/50 transition-colors duration-300">
-                  <div className="flex items-center gap-3 mb-4">
-                    <Briefcase className="w-5 h-5 text-[#92d81e]" />
-                    <Label className="font-medium text-lg text-white">
-                      Por que você está entrando em contato conosco?
-                    </Label>
-                  </div>
-                  <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                    {[
-                      { id: "web", label: "Web Design" },
-                      { id: "saas", label: "SaaS" },
-                      { id: "collaboration", label: "Colaboração" },
-                      { id: "others", label: "Outros" },
-                    ].map((option) => (
-                      <div
-                        key={option.id}
-                        className="flex items-center gap-3 p-3 bg-[#1e1e38] rounded-lg hover:bg-[#252547] transition-colors"
-                      >
-                        <Checkbox
-                          id={option.id}
-                          checked={formData.reasons.includes(option.id)}
-                          onCheckedChange={(checked) => handleReasonChange(option.id, checked as boolean)}
-                          className="border-[#3a3a5a] data-[state=checked]:bg-[#92d81e] data-[state=checked]:border-[#92d81e]"
-                        />
-                        <Label htmlFor={option.id} className="font-light text-white cursor-pointer">
-                          {option.label}
-                        </Label>
-                      </div>
-                    ))}
-                  </div>
+              <div className="grid md:grid-cols-2 gap-6">
+                <div className="space-y-2">
+                  <Label htmlFor="phone" className="text-white font-medium">
+                    {t("contact.form.phone")}
+                  </Label>
+                  <Input
+                    id="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, phone: e.target.value }))}
+                    className="bg-[#0f0f23] border-gray-700 text-white focus:border-[#92d81e]"
+                    placeholder="(11) 99999-9999"
+                  />
                 </div>
-              </div>
-            </div>
-
-            {hasProjectSize && (
-              <ProjectSizeSelector
-                value={formData.projectSize}
-                onChange={(value) => setFormData((prev) => ({ ...prev, projectSize: value }))}
-              />
-            )}
-
-            {hasBudget && (
-              <BudgetSlider
-                value={[formData.budget]} 
-                customValue={formData.customBudget}
-                onValueChange={(valueArray) => setFormData((prev) => ({ ...prev, budget: valueArray[0] }))}
-                onCustomValueChange={(value) => setFormData((prev) => ({ ...prev, customBudget: value }))}
-              />
-            )}
-
-
-            <div className="lg:col-span-2">
-              <div className="relative group">
-                <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-                <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-4 hover:border-[#92d81e]/50 transition-colors duration-300">
-                  <div className="flex items-center gap-3 mb-2">
-                    <MessageSquare className="w-5 h-5 text-[#92d81e]" />
-                    <Label htmlFor="message" className="font-medium text-lg text-white">
-                      Comentário
-                    </Label>
-                  </div>
-                  <Textarea
-                    id="message"
-                    value={formData.message}
-                    onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
-                    placeholder="Conte-nos mais sobre seu projeto..."
-                    className="bg-[#1e1e38] border-[#3a3a5a] text-white placeholder:text-[#8a8a9a] focus:border-[#92d81e] focus:ring-[#92d81e]/20 min-h-[120px] resize-none"
+                <div className="space-y-2">
+                  <Label htmlFor="company" className="text-white font-medium">
+                    {t("contact.form.company")}
+                  </Label>
+                  <Input
+                    id="company"
+                    type="text"
+                    value={formData.company}
+                    onChange={(e) => setFormData((prev) => ({ ...prev, company: e.target.value }))}
+                    className="bg-[#0f0f23] border-gray-700 text-white focus:border-[#92d81e]"
+                    placeholder="Nome da sua empresa"
                   />
                 </div>
               </div>
-            </div>
-          </div>
 
-          <div className="flex justify-center mt-8">
-            <Button
-              type="submit"
-              disabled={isSubmitting}
-              className="green-gradient hover:opacity-90 transition-opacity px-8 py-3 text-lg font-medium rounded-lg shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
-            >
-              {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
-            </Button>
+              <div className="space-y-4">
+                <Label className="text-white font-medium text-lg">{t("contact.form.services")}</Label>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {[ 
+                    { key: "web", label: t("contact.form.serviceOptions.web") },
+                    { key: "mobile", label: t("contact.form.serviceOptions.mobile") },
+                    { key: "ecommerce", label: t("contact.form.serviceOptions.ecommerce") },
+                    { key: "branding", label: t("contact.form.serviceOptions.branding") },
+                    { key: "consulting", label: t("contact.form.serviceOptions.consulting") },
+                    { key: "maintenance", label: t("contact.form.serviceOptions.maintenance") },
+                  ].map((service) => (
+                    <div key={service.key} className="flex items-center space-x-3">
+                      <Checkbox
+                        id={service.key}
+                        checked={formData.services.includes(service.key)}
+                        onCheckedChange={(checked) => handleServiceChange(service.key, checked as boolean)}
+                        className="border-gray-600 data-[state=checked]:bg-[#92d81e] data-[state=checked]:border-[#92d81e]"
+                      />
+                      <Label htmlFor={service.key} className="text-gray-300 cursor-pointer">
+                        {service.label}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="space-y-4">
+                <Label className="text-white font-medium text-lg">{t("contact.form.projectSize")}</Label>
+                <div className="grid md:grid-cols-2 gap-4">
+                  {projectSizeOptions.map((option) => (
+                    <div key={option.value} className="flex items-center space-x-3">
+                      <input
+                        type="radio"
+                        id={`size-${option.value}`}
+                        name="projectSize"
+                        value={option.value}
+                        checked={formData.projectSize === option.value}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, projectSize: e.target.value }))}
+                        className="w-4 h-4 text-[#92d81e] bg-[#0f0f23] border-gray-600 focus:ring-[#92d81e] focus:ring-2"
+                      />
+                      <Label htmlFor={`size-${option.value}`} className="text-gray-300 cursor-pointer">
+                        {option.label}
+                      </Label>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {hasBudget && (
+                <div className="space-y-4">
+                  <Label className="text-white font-medium text-lg">{t("contact.form.budget")}</Label>
+                  <BudgetSlider
+                    value={[formData.budget]}
+                    onChange={(budgetArray) => setFormData((prev) => ({ ...prev, budget: budgetArray[0] }))}
+                  />
+                </div>
+              )}
+
+              <div className="space-y-2">
+                <Label htmlFor="timeline" className="text-white font-medium">
+                  {t("contact.form.timeline")}
+                </Label>
+                <select
+                  id="timeline"
+                  value={formData.timeline}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, timeline: e.target.value }))}
+                  className="w-full bg-[#0f0f23] border border-gray-700 text-white rounded-md px-3 py-2 focus:border-[#92d81e] focus:outline-none"
+                >
+                  <option value="">{t("contact.form.timelineOptions.select")}</option>
+                  <option value="urgent">{t("contact.form.timelineOptions.urgent")}</option>
+                  <option value="1-2months">{t("contact.form.timelineOptions.oneToTwo")}</option>
+                  <option value="3-6months">{t("contact.form.timelineOptions.threeToSix")}</option>
+                  <option value="6+months">{t("contact.form.timelineOptions.sixPlus")}</option>
+                </select>
+              </div>
+
+              <div className="space-y-4">
+                <Label className="text-white font-medium text-lg">{t("contact.form.additionalInfo")}</Label>
+                <div className="space-y-3">
+                  <div className="flex items-center space-x-3">
+                    <Checkbox
+                      id="hasExistingBrand"
+                      checked={formData.hasExistingBrand}
+                      onCheckedChange={(checked) =>
+                        setFormData((prev) => ({ ...prev, hasExistingBrand: checked as boolean }))
+                      }
+                      className="border-gray-600 data-[state=checked]:bg-[#92d81e] data-[state=checked]:border-[#92d81e]"
+                    />
+                    <Label htmlFor="hasExistingBrand" className="text-gray-300 cursor-pointer">
+                      {t("contact.form.hasExistingBrand")}
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Checkbox
+                      id="needsHosting"
+                      checked={formData.needsHosting}
+                      onCheckedChange={(checked) =>
+                        setFormData((prev) => ({ ...prev, needsHosting: checked as boolean }))
+                      }
+                      className="border-gray-600 data-[state=checked]:bg-[#92d81e] data-[state=checked]:border-[#92d81e]"
+                    />
+                    <Label htmlFor="needsHosting" className="text-gray-300 cursor-pointer">
+                      {t("contact.form.needsHosting")}
+                    </Label>
+                  </div>
+                  <div className="flex items-center space-x-3">
+                    <Checkbox
+                      id="needsMaintenance"
+                      checked={formData.needsMaintenance}
+                      onCheckedChange={(checked) =>
+                        setFormData((prev) => ({ ...prev, needsMaintenance: checked as boolean }))
+                      }
+                      className="border-gray-600 data-[state=checked]:bg-[#92d81e] data-[state=checked]:border-[#92d81e]"
+                    />
+                    <Label htmlFor="needsMaintenance" className="text-gray-300 cursor-pointer">
+                      {t("contact.form.needsMaintenance")}
+                    </Label>
+                  </div>
+                </div>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="message" className="text-white font-medium">
+                  {t("contact.form.message")} *
+                </Label>
+                <Textarea
+                  id="message"
+                  value={formData.message}
+                  onChange={(e) => setFormData((prev) => ({ ...prev, message: e.target.value }))}
+                  className="bg-[#0f0f23] border-gray-700 text-white focus:border-[#92d81e] min-h-[120px]"
+                  placeholder={t("contact.form.messagePlaceholder")}
+                  required
+                />
+              </div>
+
+              <div className="text-center pt-6">
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="bg-[#92d81e] hover:bg-[#7bc142] text-black font-semibold px-8 py-3 rounded-lg transition-all duration-300 transform hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? t("contact.form.sending") : buttonTitle || t("contact.form.submit")}
+                </Button>
+              </div>
+
+              {submitStatus === "success" && (
+                <div className="text-center p-4 bg-green-900/20 border border-green-700 rounded-lg">
+                  <p className="text-green-400 font-medium">{t("contact.form.successMessage")}</p>
+                </div>
+              )}
+
+              {submitStatus === "error" && (
+                <div className="text-center p-4 bg-red-900/20 border border-red-700 rounded-lg">
+                  <p className="text-red-400 font-medium">{t("contact.form.errorMessage")}</p>
+                </div>
+              )}
+            </form>
           </div>
-        </form>
+        </div>
       </div>
-    </div>
+    </section>
   )
 }

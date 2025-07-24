@@ -1,39 +1,26 @@
-import bgCard from "@/assets/bg.png";
-import { ReactNode } from "react";
+"use client"
 
 interface HeaderMainBackgroundProps {
-  title: string;
-  subtitle?: string;
-  icon?: ReactNode;
-  footerContent?: ReactNode;
+  title: string
+  subtitle?: string
 }
 
-export function HeaderMainBackground({
-  title,
-  subtitle,
-  icon: Icon,
-  footerContent: FooterContent,
-}: HeaderMainBackgroundProps) {
+export function HeaderMainBackground({ title, subtitle }: HeaderMainBackgroundProps) {
   return (
-    <header className="relative py-8 md:py-10 border-b border-[#262626] w-full max-h-[41.25rem]">
-      <div
-        className="absolute inset-0 -z-10"
-        style={{
-          backgroundImage: `url(${bgCard.src})`,
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center top",
-          opacity: "47.75%",
-        }}
-      />
-      <div className="container flex flex-col items-center gap-4 relative z-10 text-white text-2xl lg:text-5xl font-semibold text-center">
-        {Icon}
-        <h2 className="text-md md:text-3xl">{title}</h2>
-        {subtitle && (
-          <p className="text-sm font-light max-w-[45rem]">{subtitle}</p>
-        )}
-        {FooterContent}
+    <div className="background-gradient">
+      <div className="absolute inset-0 overflow-hidden">
+        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-[#92d81e] rounded-full blur-3xl opacity-10 animate-pulse"></div>
+        <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-[#7ec617] rounded-full blur-3xl opacity-10 animate-pulse delay-1000"></div>
       </div>
-    </header>
-  );
+
+      <div className="container mx-auto px-4 relative z-10">
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">{title}</h1>
+          {subtitle && (
+            <p className="text-xl md:text-2xl text-gray-300 max-w-3xl mx-auto leading-relaxed">{subtitle}</p>
+          )}
+        </div>
+      </div>
+    </div>
+  )
 }

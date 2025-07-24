@@ -1,36 +1,26 @@
-import type { Metadata } from "next";
-import { Barlow } from "next/font/google";
-import "./globals.css";
-import { Header } from "@/components/Header";
-import { Footer } from "@/components/Footer";
+import type React from "react"
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { LanguageProvider } from "@/components/LanguageProvider"
 
-const barlow = Barlow({
-  weight: ["400", "500", "600"],
-  subsets: ["latin"],
-  variable: "--font-barlow",
-});
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Green Code",
-  description: "Transformamos Ideias em Soluções Digitais Inovadoras",
-};
+  title: "Green Code - Software House",
+  description: "Transformamos suas ideias em soluções digitais inovadoras",
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
-    <html lang="en">
-      <body
-        className={`${barlow.className} flex flex-col justify-between h-screen`}
-      >
-        <div>
-          <Header />
-          {children}
-        </div>
-        <Footer />
+    <html lang="pt">
+      <body className={inter.className}>
+        <LanguageProvider>{children}</LanguageProvider>
       </body>
     </html>
-  );
+  )
 }

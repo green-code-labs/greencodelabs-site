@@ -1,7 +1,5 @@
 "use client"
-
-import { Label } from "@/components/ui/label"
-import { Briefcase } from "lucide-react"
+import { useLanguage } from "./LanguageProvider"
 
 interface ProjectSizeSelectorProps {
   value: string
@@ -9,45 +7,33 @@ interface ProjectSizeSelectorProps {
 }
 
 export function ProjectSizeSelector({ value, onChange }: ProjectSizeSelectorProps) {
-  const projectSizes = [
-    { id: "pequeno", label: "Pequeno" },
-    { id: "medio", label: "Médio" },
-    { id: "grande", label: "Grande" },
-    { id: "outros", label: "Outros" },
+  const { t } = useLanguage()
+
+  const sizes = [
+    { id: "small", label: t("contact.form.projectSizes.small") as string },
+    { id: "medium", label: t("contact.form.projectSizes.medium") as string },
+    { id: "large", label: t("contact.form.projectSizes.large") as string },
+    { id: "enterprise", label: t("contact.form.projectSizes.enterprise") as string },
   ]
 
   return (
-    <div className="lg:col-span-2">
-      <div className="relative group">
-        <div className="absolute inset-0 bg-gradient-to-r from-[#92d81e] to-[#438e00] rounded-lg opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
-        <div className="relative bg-[#2a2a4a] border border-[#3a3a5a] rounded-lg p-6 hover:border-[#92d81e]/50 transition-colors duration-300">
-          <div className="flex items-center gap-3 mb-4">
-            <Briefcase className="w-5 h-5 text-[#92d81e]" />
-            <Label className="font-medium text-lg text-white">Qual tamanho do seu projeto?</Label>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {projectSizes.map((option) => (
-              <div
-                key={option.id}
-                className={`flex items-center gap-3 p-3 rounded-lg transition-colors cursor-pointer ${
-                  value === option.id
-                    ? "bg-[#92d81e]/20 border border-[#92d81e]"
-                    : "bg-[#1e1e38] hover:bg-[#252547]"
-                }`}
-                onClick={() => onChange(option.id)}
-              >
-                <div
-                  className={`w-4 h-4 rounded-full border-2 transition-colors ${
-                    value === option.id ? "bg-[#92d81e] border-[#92d81e]" : "border-[#3a3a5a]"
-                  }`}
-                >
-                  {value === option.id && <div className="w-2 h-2 bg-white rounded-full m-0.5"></div>}
-                </div>
-                <Label className="font-light text-white cursor-pointer">{option.label}</Label>
-              </div>
-            ))}
-          </div>
-        </div>
+    <div className="space-y-3">
+      <label className="text-sm font-medium text-gray-300">{t("contact.form.projectSize") as string}</label>
+      <div className="grid grid-cols-2 gap-3">
+        {sizes.map((size) => (
+          <button
+            key={size.id}
+            type="button"
+            onClick={() => onChange(size.id)}
+            className={`p-3 rounded-lg border text-sm font-medium transition-colors ${
+              value === size.id
+                ? "border-[#92d81e] bg-[#92d81e]/10 text-[#92d81e]"
+                : "border-gray-600 text-gray-300 hover:border-gray-500"
+            }`}
+          >
+            {size.label}
+          </button>
+        ))}
       </div>
     </div>
   )

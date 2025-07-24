@@ -1,139 +1,113 @@
-import Image from "next/image"
-import Link from "next/link"
-import logoImg from "@/assets/logo.svg"
-import { Facebook } from "@/assets/icons/Facebook"
-import { Instagram } from "@/assets/icons/Instagram"
-import { LinkedIn } from "@/assets/icons/LinkedIn"
+"use client"
 
-const footerRoutes = [
-  { text: "Home", path: "/" },
-  { text: "Serviços", path: "/servicos" },
-  { text: "Processos", path: "/processos" },
-  { text: "Sobre Nós", path: "/sobre-nos" },
-  { text: "Blog", path: "https://blog.greencodelabs.com", external: true },
-  { text: "Contato", path: "/contato" },
-]
+import Link from "next/link"
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram } from "lucide-react"
+import { useLanguage } from "./LanguageProvider"
 
 export function Footer() {
+  const { t } = useLanguage()
+
   return (
-    <footer className="bg-[#171730] pt-16 pb-8">
-      <div className="container mx-auto px-4">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-12">
-          <div>
-            <div className="flex items-center gap-2 mb-4">
-              <Image src={logoImg || "/placeholder.svg"} alt="Green Code" width={40} height={40} />
-              <span className="font-bold text-xl">Green Code</span>
+    <footer className="bg-black border-t border-gray-800">
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+
+          <div className="space-y-4">
+            <div className="flex items-center space-x-2">
+              <div className="w-10 h-10">
+                <img
+                  src="/assets/dragon-logo.png"
+                  alt="Green Code Logo"
+                  className="object-contain w-full h-full"
+                />
+              </div>
+              <div className="text-white">
+                <div className="font-bold text-lg leading-none">Green</div>
+                <div className="font-bold text-lg leading-none">Code</div>
+              </div>
             </div>
-            <p className="text-gray-400 mb-6">
-              Transformando ideias em soluções digitais de alto impacto com tecnologias modernas e processos ágeis.
-            </p>
-            <div className="flex gap-4">
-              <Link
-                href="https://facebook.com/greencodeti"
-                className="text-gray-400 hover:text-[#92d81e]"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Facebook />
-              </Link>
-              <Link
-                href="https://instagram.com"
-                className="text-gray-400 hover:text-[#92d81e]"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <Instagram />
-              </Link>
-              <Link
-                href="https://linkedin.com"
-                className="text-gray-400 hover:text-[#92d81e]"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <LinkedIn />
-              </Link>
+            <p className="text-gray-400">{t("footer.description")}</p>
+            <div className="flex space-x-4">
+              <a href="#" className="text-gray-400 hover:text-[#92d81e] transition-colors">
+                <Github className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#92d81e] transition-colors">
+                <Linkedin className="w-5 h-5" />
+              </a>
+              <a href="#" className="text-gray-400 hover:text-[#92d81e] transition-colors">
+                <Instagram className="w-5 h-5" />
+              </a>
             </div>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Links Rápidos</h3>
-            <ul className="space-y-3">
-              {footerRoutes.map((route) => (
-                <li key={route.path}>
-                  <Link
-                    href={route.path}
-                    target={route.external ? "_blank" : undefined}
-                    rel={route.external ? "noopener noreferrer" : undefined}
-                    className="text-gray-400 hover:text-[#92d81e]"
-                  >
-                    {route.text}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <h3 className="font-bold text-lg mb-4">Serviços</h3>
-            <ul className="space-y-3">
+            <h3 className="text-white font-bold text-lg mb-4">{t("footer.services")}</h3>
+            <ul className="space-y-2">
               <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#92d81e]">
-                  Desenvolvimento Web
+                <Link href="/servicos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.webDev")}
                 </Link>
               </li>
               <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#92d81e]">
-                  Aplicativos Mobile
+                <Link href="/servicos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.mobileApps")}
                 </Link>
               </li>
               <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#92d81e]">
-                  UX/UI Design
+                <Link href="/servicos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.customSystems")}
                 </Link>
               </li>
               <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#92d81e]">
-                  Consultoria em TI
-                </Link>
-              </li>
-              <li>
-                <Link href="/servicos" className="text-gray-400 hover:text-[#92d81e]">
-                  DevOps
+                <Link href="/servicos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.techConsulting")}
                 </Link>
               </li>
             </ul>
           </div>
 
           <div>
-            <h3 className="font-bold text-lg mb-4">Contato</h3>
-            <ul className="space-y-3">
-              <li className="text-gray-400">
-                <strong className="text-white">Email:</strong> contato@greencodelabs.com
+            <h3 className="text-white font-bold text-lg mb-4">{t("footer.company")}</h3>
+            <ul className="space-y-2">
+              <li>
+                <Link href="/sobre-nos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.aboutUs")}
+                </Link>
               </li>
-              <li className="text-gray-400">
-                <strong className="text-white">Telefone:</strong> +55 (11) 9999-9999
+              <li>
+                <Link href="/processos" className="text-gray-400 hover:text-white transition-colors">
+                  {t("footer.processes")}
+                </Link>
               </li>
-              <li className="text-gray-400">
-                <strong className="text-white">Endereço:</strong> Av. Paulista, 1000 - São Paulo, SP
+              <li>
+                <Link href="/contato" className="text-gray-400 hover:text-white transition-colors">
+                  {t("nav.contact")}
+                </Link>
               </li>
             </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-bold text-lg mb-4">{t("footer.contact")}</h3>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <Mail className="w-4 h-4 text-[#92d81e]" />
+                <span className="text-gray-400">contato@greencode.dev</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <Phone className="w-4 h-4 text-[#92d81e]" />
+                <span className="text-gray-400">+55 (11) 99999-9999</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <MapPin className="w-4 h-4 text-[#92d81e]" />
+                <span className="text-gray-400">São Paulo, SP</span>
+              </div>
+            </div>
           </div>
         </div>
 
-        <div className="border-t border-[#2a2a4a] pt-8 mt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="text-gray-400 text-sm mb-4 md:mb-0">
-              © {new Date().getFullYear()} Green Code Labs. Todos os direitos reservados.
-            </p>
-            <div className="flex gap-6">
-              <Link href="/politica-de-privacidade" className="text-gray-400 hover:text-[#92d81e] text-sm">
-                Política de Privacidade
-              </Link>
-              <Link href="/termos-de-uso" className="text-gray-400 hover:text-[#92d81e] text-sm">
-                Termos de Uso
-              </Link>
-            </div>
-          </div>
+        <div className="border-t border-gray-800 mt-12 pt-8 text-center">
+          <p className="text-gray-400">© 2024 Green Code. {t("footer.rights")}</p>
         </div>
       </div>
     </footer>

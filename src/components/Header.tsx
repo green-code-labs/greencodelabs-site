@@ -1,131 +1,128 @@
 "use client"
 
-import Image from "next/image"
-import { useEffect, useRef, useState } from "react"
-import logoImg from "@/assets/logo.svg"
+import { useState } from "react"
 import Link from "next/link"
-import { Button } from "./ui/button"
-import { MenuIcon, X } from "lucide-react"
-import { usePathname } from "next/navigation"
-
-export const routes = [
-  { text: "Home", path: "/" },
-  { text: "Serviços", path: "/servicos" },
-  { text: "Processos", path: "/processos" },
-  { text: "Sobre Nós", path: "/sobre-nos" },
-  { text: "Blog", path: "https://blog.greencodelabs.com", external: true },
-  { text: "Contato", path: "/contato" },
-]
+import Image from "next/image"
+import { Button } from "@/components/ui/button"
+import { Menu, X } from "lucide-react"
+import { LanguageSwitcher } from "./LanguageSwitcher"
+import { useLanguage } from "./LanguageProvider"
 
 export function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
-  const menuRef = useRef<HTMLDivElement>(null)
-  const pathname = usePathname()
-
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen)
-  }
-
-  const handleClickOutside = (event: MouseEvent) => {
-    if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-      setIsMenuOpen(false)
-    }
-  }
-
-  useEffect(() => {
-    document.addEventListener("mousedown", handleClickOutside)
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside)
-    }
-  }, [])
+  const { t } = useLanguage()
 
   return (
-    <header className="w-full bg-[#1e1e38] sticky top-0 z-50 border-b border-[#2a2a4a]">
-      <div className="container mx-auto flex px-4 py-4 justify-between items-center">
-        <div className="flex items-center">
-          <Link href="/" className="flex items-center gap-2">
-            <Image src={logoImg || "/placeholder.svg"} alt="Green Code" width={40} height={40} className="w-10 h-10" />
-            <span className="font-bold text-xl text-white">Green Code</span>
+    <header className="fixed top-0 w-full bg-black/90 backdrop-blur-sm border-b border-gray-800 z-50">
+      <div className="container mx-auto px-4">
+        <div className="flex items-center justify-between h-16">
+          <Link href="/" className="flex items-center space-x-3">
+            <div className="relative w-10 h-10">
+              <Image
+                src="/assets/dragon-logo.png"
+                alt="Green Code Logo"
+                width={40}
+                height={40}
+                className="object-contain"
+              />
+            </div>
+            <div className="text-white">
+              <div className="font-bold text-lg leading-none">Green</div>
+              <div className="font-bold text-lg leading-none">Code</div>
+            </div>
           </Link>
-        </div>
 
-        <nav className="hidden md:flex items-center">
-          <ul className="flex items-center gap-8">
-            {routes.map((link) => {
-              if (link.text === "Contato") return null
+          <nav className="hidden md:flex items-center space-x-8">
+            <Link href="/" className="text-gray-300 hover:text-white transition-colors">
+              {t("nav.home")}
+            </Link>
+            <Link href="/servicos" className="text-gray-300 hover:text-white transition-colors">
+              {t("nav.services")}
+            </Link>
+            <Link href="/processos" className="text-gray-300 hover:text-white transition-colors">
+              {t("nav.processes")}
+            </Link>
+            <Link href="/sobre-nos" className="text-gray-300 hover:text-white transition-colors">
+              {t("nav.about")}
+            </Link>
+            <Link href="/contato" className="text-gray-300 hover:text-white transition-colors">
+              {t("nav.contact")}
+            </Link>
+          </nav>
 
-              return (
-                <li key={link.path}>
-                  <Link
-                    href={link.path}
-                    target={link.external ? "_blank" : undefined}
-                    rel={link.external ? "noopener noreferrer" : undefined}
-                    className={`text-base font-medium transition-colors ${
-                      pathname === link.path && !link.external ? "text-[#92d81e]" : "text-white hover:text-[#92d81e]"
-                    }`}
-                  >
-                    {link.text}
-                  </Link>
-                </li>
-              )
-            })}
-          </ul>
-        </nav>
-
-        <div className="hidden md:flex items-center gap-4">
-          <Button
-            variant="outline"
-            className="border-[#92d81e] text-[#92d81e] hover:bg-[#92d81e] hover:text-white"
-            asChild
-          >
-            <Link href="/contato">Contate-nos</Link>
-          </Button>
-          <Button className="bg-[#92d81e] hover:bg-[#7ec617] text-white" asChild>
-            <Link href="/contato">Iniciar Projeto</Link>
-          </Button>
-        </div>
-
-        <button className="md:hidden text-white" onClick={toggleMenu}>
-          {isMenuOpen ? <X className="w-6 h-6" /> : <MenuIcon className="w-6 h-6" />}
-        </button>
-      </div>
-      <div
-        ref={menuRef}
-        className={`md:hidden absolute inset-x-0 bg-[#1e1e38] border-b border-[#2a2a4a] transition-all duration-300 ease-in-out ${
-          isMenuOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0 overflow-hidden"
-        }`}
-      >
-        <nav className="container mx-auto px-4 py-4">
-          <ul className="flex flex-col gap-4">
-            {routes.map((link) => (
-              <li key={link.path}>
-                <Link
-                  href={link.path}
-                  target={link.external ? "_blank" : undefined}
-                  rel={link.external ? "noopener noreferrer" : undefined}
-                  className={`block py-2 text-lg font-medium ${
-                    pathname === link.path && !link.external ? "text-[#92d81e]" : "text-white"
-                  }`}
-                  onClick={toggleMenu}
-                >
-                  {link.text}
-                </Link>
-              </li>
-            ))}
-          </ul>
-          <div className="mt-6 flex flex-col gap-3">
-            <Button
-              variant="outline"
-              className="w-full border-[#92d81e] text-[#92d81e] hover:bg-[#92d81e] hover:text-white"
-              asChild
-            >
-              <Link href="/contato">Contate-nos</Link>
-            </Button>
-            <Button className="w-full bg-[#92d81e] hover:bg-[#7ec617] text-white" asChild>
-              <Link href="/contato">Iniciar Projeto</Link>
-            </Button>
+          <div className="hidden md:flex items-center space-x-4">
+            <LanguageSwitcher />
+            <Link href="/contato">
+              <Button variant="outline" className="border-gray-600 text-gray-300 hover:bg-gray-800 bg-transparent">
+                {t("header.freeQuote")}
+              </Button>
+            </Link>
+            <Link href="/contato">
+              <Button className="bg-[#92d81e] hover:bg-[#7bc142] text-black">{t("header.talkToUs")}</Button>
+            </Link>
           </div>
-        </nav>
+
+          <button className="md:hidden text-white" onClick={() => setIsMenuOpen(!isMenuOpen)}>
+            {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
+        </div>
+
+        {isMenuOpen && (
+          <div className="md:hidden py-4 border-t border-gray-800">
+            <nav className="flex flex-col space-y-4">
+              <Link
+                href="/"
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.home")}
+              </Link>
+              <Link
+                href="/servicos"
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.services")}
+              </Link>
+              <Link
+                href="/processos"
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.processes")}
+              </Link>
+              <Link
+                href="/sobre-nos"
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.about")}
+              </Link>
+              <Link
+                href="/contato"
+                className="text-gray-300 hover:text-white transition-colors"
+                onClick={() => setIsMenuOpen(false)}
+              >
+                {t("nav.contact")}
+              </Link>
+              <div className="flex items-center justify-between pt-4">
+                <LanguageSwitcher />
+                <div className="flex space-x-2">
+                  <Link href="/contato">
+                    <Button variant="outline" size="sm" className="border-gray-600 text-gray-300 bg-transparent">
+                      {t("header.freeQuote")}
+                    </Button>
+                  </Link>
+                  <Link href="/contato">
+                    <Button size="sm" className="bg-[#92d81e] hover:bg-[#7bc142] text-black">
+                      {t("header.talkToUs")}
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+            </nav>
+          </div>
+        )}
       </div>
     </header>
   )

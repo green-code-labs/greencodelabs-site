@@ -1,0 +1,167 @@
+{
+  "nav": {
+    "home": "Início",
+    "services": "Serviços",
+    "about": "Sobre Nós",
+    "processes": "Processos",
+    "contact": "Contato"
+  },
+  "hero": {
+    "title": "Transformamos suas ideias em soluções digitais inovadoras",
+    "subtitle": "Somos uma software house especializada em desenvolvimento web, mobile e soluções personalizadas para impulsionar seu negócio no mundo digital.",
+    "cta": "Começar Projeto",
+    "ctaSecondary": "Ver Portfólio"
+  },
+  "solutions": {
+    "title": "Nossas Soluções",
+    "subtitle": "Oferecemos uma gama completa de serviços de desenvolvimento para atender todas as suas necessidades digitais",
+    "web": {
+      "title": "Desenvolvimento Web",
+      "description": "Sites e aplicações web modernas, responsivas e otimizadas para performance",
+      "features": ["Sites Responsivos", "E-commerce", "Sistemas Web", "Landing Pages"]
+    },
+    "mobile": {
+      "title": "Desenvolvimento Mobile",
+      "description": "Aplicativos nativos e híbridos para iOS e Android com experiência excepcional",
+      "features": ["Apps Nativos", "Apps Híbridos", "UI/UX Design", "Publicação nas Stores"]
+    },
+    "custom": {
+      "title": "Soluções Personalizadas",
+      "description": "Sistemas sob medida para atender necessidades específicas do seu negócio",
+      "features": ["ERP/CRM", "APIs REST", "Integrações", "Automações"]
+    },
+    "branding": {
+      "title": "Branding & Design",
+      "description": "Identidade visual completa e design que conecta com seu público-alvo",
+      "features": ["Logo & Identidade", "Material Gráfico", "UI/UX Design", "Prototipagem"]
+    }
+  },
+  "chosen": {
+    "title": "Por que nos escolher?",
+    "subtitle": "Combinamos expertise técnica com criatividade para entregar soluções que realmente fazem a diferença",
+    "experience": {
+      "title": "Experiência Comprovada",
+      "description": "Anos de experiência desenvolvendo soluções para diversos segmentos"
+    },
+    "quality": {
+      "title": "Qualidade Garantida",
+      "description": "Código limpo, testes rigorosos e documentação completa"
+    },
+    "support": {
+      "title": "Suporte Contínuo",
+      "description": "Acompanhamento pós-entrega e suporte técnico especializado"
+    },
+    "innovation": {
+      "title": "Tecnologia de Ponta",
+      "description": "Sempre utilizamos as tecnologias mais modernas e eficientes"
+    }
+  },
+  "faq": {
+    "title": "Perguntas Frequentes",
+    "subtitle": "Tire suas dúvidas sobre nossos serviços e processos",
+    "items": [
+      {
+        "question": "Quanto tempo leva para desenvolver um projeto?",
+        "answer": "O prazo varia conforme a complexidade do projeto. Sites simples podem levar de 2-4 semanas, enquanto sistemas mais complexos podem levar de 2-6 meses. Sempre fornecemos um cronograma detalhado após a análise inicial."
+      },
+      {
+        "question": "Vocês oferecem suporte após a entrega?",
+        "answer": "Sim! Oferecemos garantia de 3 meses para correção de bugs e suporte técnico. Também temos planos de manutenção mensal para atualizações e melhorias contínuas."
+      },
+      {
+        "question": "Como funciona o processo de desenvolvimento?",
+        "answer": "Seguimos uma metodologia ágil: 1) Briefing e planejamento, 2) Design e prototipagem, 3) Desenvolvimento iterativo, 4) Testes e validação, 5) Entrega e treinamento. Você acompanha cada etapa do processo."
+      },
+      {
+        "question": "Vocês trabalham com que tecnologias?",
+        "answer": "Utilizamos tecnologias modernas como React, Next.js, Node.js, Python, React Native, Flutter, e diversas outras. Escolhemos a stack ideal para cada projeto baseado nos requisitos específicos."
+      },
+      {
+        "question": "É possível fazer alterações durante o desenvolvimento?",
+        "answer": "Sim, nossa metodologia ágil permite ajustes durante o desenvolvimento. Pequenas alterações são incluídas no escopo, mudanças maiores são avaliadas e orçadas separadamente."
+      }
+    ]
+  },
+  "contact": {
+    "title": "Vamos Conversar?",
+    "subtitle": "Pronto para transformar sua ideia em realidade? Conte-nos sobre seu projeto e vamos criar algo incrível juntos!",
+    "form": {
+      "name": "Nome Completo",
+      "namePlaceholder": "Digite seu nome completo",
+      "email": "E-mail",
+      "emailPlaceholder": "seu@email.com",
+      "phone": "Telefone",
+      "phonePlaceholder": "(11) 99999-9999",
+      "company": "Empresa/Organização",
+      "companyPlaceholder": "Nome da sua empresa",
+      "services": "Serviços de Interesse",
+      "serviceOptions": {
+        "web": "Desenvolvimento Web",
+        "mobile": "Aplicativos Mobile",
+        "ecommerce": "Loja Virtual (E-commerce)",
+        "branding": "Identidade Visual & Design",
+        "consulting": "Consultoria Técnica",
+        "maintenance": "Manutenção e Suporte"
+      },
+      "projectSize": "Porte do Projeto",
+      "projectSizeOptions": {
+        "small": "Pequeno (Site simples, Landing Page)",
+        "medium": "Médio (E-commerce, Sistema Web)",
+        "large": "Grande (Plataforma complexa, App Mobile)",
+        "enterprise": "Corporativo (Sistema empresarial, Múltiplas integrações)"
+      },
+      "budget": "Investimento Estimado",
+      "timeline": "Prazo Desejado",
+      "timelineOptions": {
+        "select": "Selecione o prazo desejado",
+        "urgent": "Urgente (até 1 mês)",
+        "oneToTwo": "1 a 2 meses",
+        "threeToSix": "3 a 6 meses",
+        "sixPlus": "Acima de 6 meses"
+      },
+      "additionalInfo": "Informações Complementares",
+      "hasExistingBrand": "Já possui identidade visual definida",
+      "needsHosting": "Necessita de hospedagem e domínio",
+      "needsMaintenance": "Deseja plano de manutenção contínua",
+      "message": "Detalhes do Projeto",
+      "messagePlaceholder": "Descreva seu projeto, objetivos, público-alvo e qualquer informação relevante que nos ajude a entender melhor suas necessidades...",
+      "submit": "Enviar Solicitação",
+      "sending": "Enviando...",
+      "successMessage": "Solicitação enviada com sucesso! Nossa equipe entrará em contato em até 24 horas.",
+      "errorMessage": "Ops! Algo deu errado. Tente novamente ou entre em contato diretamente conosco."
+    }
+  },
+  "footer": {
+    "company": {
+      "title": "Empresa",
+      "description": "Transformamos ideias em soluções digitais inovadoras. Especialistas em desenvolvimento web, mobile e soluções personalizadas."
+    },
+    "services": {
+      "title": "Serviços",
+      "web": "Desenvolvimento Web",
+      "mobile": "Apps Mobile",
+      "custom": "Soluções Personalizadas",
+      "branding": "Branding & Design"
+    },
+    "company_links": {
+      "title": "Empresa",
+      "about": "Sobre Nós",
+      "services": "Serviços",
+      "portfolio": "Portfólio",
+      "contact": "Contato"
+    },
+    "contact": {
+      "title": "Contato",
+      "email": "contato@empresa.com",
+      "phone": "+55 (11) 99999-9999",
+      "address": "São Paulo, SP - Brasil"
+    },
+    "social": {
+      "title": "Redes Sociais",
+      "follow": "Siga-nos"
+    },
+    "rights": "Todos os direitos reservados.",
+    "privacy": "Política de Privacidade",
+    "terms": "Termos de Uso"
+  }
+}
